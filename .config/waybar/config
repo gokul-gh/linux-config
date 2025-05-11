@@ -1,0 +1,326 @@
+[
+  {
+    "name": "topBar",
+    "layer": "bottom", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    // "height": 12, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    // "margin-top": 4,
+    // "margin-right": 4,
+    // "margin-left": 4,
+    // "margin-bottom": 4,
+    // Choose the order of the modules
+    "modules-left": [
+      "pulseaudio",
+      "sway/mode",
+      "sway/scratchpad",
+      "custom/media",
+      "custom/vnstat",
+      "network"
+    ],
+    "modules-right": [
+      "mpd",
+      "custom/wf-recorder",
+      "idle_inhibitor",
+      "memory",
+      "temperature",
+      "keyboard-state",
+      "bluetooth",
+      "battery",
+      "custom/clipboard",
+      "custom/notification",
+      "tray"
+    ],
+    // Modules configuration
+    "keyboard-state": {
+      "numlock": true,
+      "capslock": true,
+      "format": "{name} {icon}",
+      "format-icons": {
+        "locked": "",
+        "unlocked": ""
+      }
+    },
+    "sway/mode": {
+      "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/scratchpad": {
+      "format": "{icon} {count}",
+      "show-empty": false,
+      "format-icons": ["", ""],
+      "tooltip": true,
+      "tooltip-format": "{app}: {title}"
+    },
+    "mpd": {
+      "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+      "format-disconnected": "Disconnected ",
+      "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+      "unknown-tag": "N/A",
+      "interval": 2,
+      "consume-icons": {
+        "on": " "
+      },
+      "random-icons": {
+        "off": "<span color=\"#f53c3c\"></span> ",
+        "on": " "
+      },
+      "repeat-icons": {
+        "on": " "
+      },
+      "single-icons": {
+        "on": "1 "
+      },
+      "state-icons": {
+        "paused": "",
+        "playing": ""
+      },
+      "tooltip-format": "MPD (connected)",
+      "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "idle_inhibitor": {
+      "format": "standby: {}"
+    },
+    "memory": {
+      "format": "ram: {}%",
+      "interval": 20,
+      "tooltip": true,
+      "tooltip-format": "{used:0.1f}G/{total:0.1f}G "
+    },
+    "tray": {
+      "icon-size": 14,
+      "spacing": 8
+    },
+    //"clock": {
+    //    // "timezone": "America/New_York",
+    //    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    //    "format-alt": "{:%Y-%m-%d}"
+    //},
+    "temperature": {
+      // "thermal-zone": 2,
+      "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+      "critical-threshold": 80,
+      // "format-critical": "{temperatureC}°C {icon}",
+      "format": "temp: {temperatureC}°C"
+    },
+    "battery": {
+      "states": {
+        "good": 50,
+        "warning": 40,
+        "critical": 30
+      },
+      "format": "on-battery: {capacity}%",
+      "format-charging": "on-charge: {capacity}%",
+      "format-plugged": "on-plug: {capacity}%",
+      "format-alt": "{time} {icon}",
+      // "format-good": "", // An empty format will hide the module
+      // "format-full": "",
+      "format-icons": ["", "", "", "", ""],
+      "interval": 1
+      // "design-capacity": true
+    },
+    "battery#bat2": {
+      "bat": "BAT2"
+    },
+    "network": {
+      "format": "<span font='12'>󰓅</span> {bandwidthTotalBytes}",
+      "interval": 1,
+      "format-ethernet": "<span font='12'>󰈀</span>  {bandwidthTotalBytes}",
+      "format-wifi": "wifi-speed: {bandwidthTotalBytes}",
+      "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+      "format-disconnected": "Disconnected ⚠",
+      "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%)   Signal: {signaldBm}  Freq: {frequency} ",
+      "tooltip-format-ethernet": "{ifname} ",
+      "tooltip-format-disconnected": "Disconnected",
+      "on-click": "foot nmtui"
+    },
+    "pulseaudio": {
+      // "scroll-step": 1, // %, can be a float
+      "format": "volume:{volume}% | {format_source}",
+      "format-bluetooth": "Bt-volume: {volume}% {format_source}",
+      "format-bluetooth-muted": "Bt-muted: {format_source}",
+      "format-muted": "speaker-muted | {format_source}",
+      "format-source": "mic:{volume}%",
+      "format-source-muted": "mic-muted",
+      "tooltip": true,
+      "tooltip-format": "{desc}",
+      "max-volume": 100,
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
+      },
+      "on-click": "pavucontrol"
+    },
+    "custom/media": {
+      "format": "{icon} {}",
+      "return-type": "json",
+      "max-length": 40,
+      "format-icons": {
+        "spotify": "",
+        "default": "🎜"
+      },
+      "escape": true,
+      "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+      // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+
+    //modules added by myself
+    "bluetooth": {
+      // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+      "format": "bt: {status}",
+      "format-disabled": "", // an empty format will hide the module
+      "format-connected": " {num_connections} ",
+      //"format-connected-battery": " {device_battery_percentage}%",
+      // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+      "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+      //"tooltip-format-connected-battery": "{device_battery_percentage}"
+    },
+
+    "privacy": {
+      "icon-spacing": 4,
+      "icon-size": 18,
+      "transition-duration": 250,
+      "modules": [
+        {
+          "type": "screenshare",
+          "tooltip": true,
+          "tooltip-icon-size": 24
+        },
+        {
+          "type": "audio-out",
+          "tooltip": true,
+          "tooltip-icon-size": 24
+        },
+        {
+          "type": "audio-in",
+          "tooltip": true,
+          "tooltip-icon-size": 24
+        }
+      ]
+    },
+    "custom/clipboard": {
+      "format": "",
+      "interval": "once",
+      "return-type": "json",
+      "on-click": "swaymsg -q exec '$clipboard'; pkill -RTMIN+9 waybar",
+      "on-click-right": "swaymsg -q exec '$clipboard-del'; pkill -RTMIN+9 waybar",
+      "on-click-middle": "swaymsg -q exec '$clipboard-del-all'",
+      "exec": "printf '{\"tooltip\":\"%s\"}' $(cliphist list | wc -l)",
+      "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list | wc -l) -gt 0 ]",
+      "signal": 9
+    },
+    "custom/vnstat": {
+      "format": "data-usage: {}",
+      "tooltip": false,
+      "interval": 30,
+      "min-length": 12,
+      "exec": "~/.config/waybar/scripts/data.sh"
+    },
+    "custom/power": {
+      "format": "",
+      "on-click": "systemctl suspend"
+    },
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{} {icon}",
+      "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true
+    },
+    "custom/wf-recorder": {
+      "format": "{}",
+      "interval": 1,
+      "exec": "echo ''",
+      "tooltip": "false",
+      "exec-if": "pgrep 'wf-recorder'",
+      // "on-click": "exec $HOME/.scripts/wlrecord.sh",
+      "signal": 8
+    }
+  },
+  {
+    "name": "bottomBar",
+    "layer": "bottom",
+    "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 12, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    // "margin-right": 6,
+    // "margin-left": 6,
+    "modules-left": ["cpu", "sway/language"],
+    "modules-center": ["sway/workspaces"],
+    "modules-right": ["backlight", "clock"],
+
+    "cpu": {
+      "format": "usage:{usage}% | load:{load} | freq:{avg_frequency}Hz",
+      "tooltip": true,
+      "interval": 10,
+      "on-click": "foot htop"
+    },
+    "sway/language": {
+      "format": "kbd: {short}",
+      "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
+      "tooltip": true,
+      "tooltip-format": "{long}"
+    },
+
+    "sway/workspaces": {
+      "disable-scroll": true,
+      "all-outputs": true,
+      "warp-on-scroll": false,
+      "format": "{name}"
+    },
+
+    "backlight": {
+      // "device": "acpi_video1",
+      "format": "bright: {percent}%"
+    },
+    "clock": {
+      "format": "date: {:%F %T}",
+      "format-alt": "{:%A, %B %d, %Y (%R)} ",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "interval": 1,
+      "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "format": {
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
+      },
+      "actions": {
+        "on-click-right": "mode",
+        "on-scroll-up": "tz_up",
+        "on-scroll-down": "tz_down",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+      }
+    }
+  }
+]
