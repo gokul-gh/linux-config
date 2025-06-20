@@ -1,0 +1,6 @@
+# Text
+background-color=#e1f5fe
+# font=JetBrainsMonoNL NF
+format=%a: %s\n%b
+text-color=#000000
+width=300

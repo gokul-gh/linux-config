@@ -25,12 +25,12 @@ set $menu wofi --show=drun --insensitive
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/lenovo/Pictures/wallpaper/pepe-the-frog-mountain-iqrcyg7pailk6rhm.jpg fill
+output * bg ~/pictures/wallpaper/pepe-the-frog-mountain-iqrcyg7pailk6rhm.jpg fill
 
 #
 # Example configuration:
 #
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+  output eDP-1 resolution 1920x1080 scale 1.3
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -51,7 +51,7 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-  input "2:14:ETPS/2_Elantech_Touchpad" {
+  input "1102:4619:DLL07D0:01_044E:120B" {
       dwt disabled
       tap enabled
       natural_scroll enabled
@@ -229,8 +229,12 @@ bindsym $mod+r mode "resize"
 bar swaybar_command waybar
 
 # backlight
+# zebronics keyboard
 bindsym --locked XF86Mail exec brightnessctl set 5%-
 bindsym --locked XF86Explorer exec brightnessctl set 5%+
+# laptop
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 
 # border in applicatios
 default_border normal
@@ -258,7 +262,7 @@ exec wl-paste -t text --watch clipman store --max-items=60 --histpath="~/.local/
 bindsym $mod+y exec clipman pick --tool="wofi" --max-items=30 --histpath="~/.local/share/clipman.json"
 
 # font JetBrainsMonoNerdFont 10
-font pango: JetBrainsMonoNLNerdFont 11
+font pango: CascadiaMono 11
 
 # Notification Daemon
 exec mako
@@ -277,6 +281,13 @@ exec nm-applet --indicator
 # Toggle control center
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    # gsettings set $gnome-schema gtk-theme 'Your theme'
+    # gsettings set $gnome-schema icon-theme 'Your icon theme'
+    # gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
+    gsettings set $gnome-schema font-name 'Cascadia Mono 12'
+}
 
 workspace_layout tabbed
 smart_borders on
