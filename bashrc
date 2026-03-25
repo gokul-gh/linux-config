@@ -164,4 +164,16 @@ export PATH="$HOME/.asdf/shims:$PATH"
 export JAVA_HOME="$HOME/.asdf/installs/java/adoptopenjdk-21.0.7+6.0.LTS"
 export PATH=$JAVA_HOME/bin:$PATH
 
+# export PATH=$PATH:/opt/gradle/gradle-8.14.2/bin
+export GRADLE_HOME="$HOME/.asdf/installs/gradle/8.14"
+export PATH=${GRADLE_HOME}/bin:${PATH}
+
+alias adb='~/Documents/applications/platform-tools/adb'
+alias fastboot='~/Documents/applications/platform-tools/fastboot'
+
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 . <(asdf completion bash)
+
+export PATH=$PATH:/var/lib/flatpak/exports/bin
+export PATH=$HOME/.local/bin:$PATH
